@@ -1,8 +1,19 @@
 <?php
 
+// header("Access-Control-Allow-Origin: http://localhost:3000");
+
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Max-Age: 3600");
+
+// Handle preflight
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { 
+    http_response_code(200);
+    exit;
+}
+
+$_POST = json_decode(file_get_contents('php://input'), true);
 
 $env = file(__DIR__.'/../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
@@ -25,7 +36,7 @@ foreach($env as $value)
 // No longer using Brevo PHP library; using curl instead
 
 // Get POST values
-$to = $_POST['to'] ?? null;
+$to = $_POST['to'] ?? 'adam.thomas@humber.ca';
 $subject = $_POST['subject'] ?? 'Testing';
 $message = $_POST['message'] ?? 'This is a test message.';
 
