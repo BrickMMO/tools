@@ -37,7 +37,7 @@ foreach($env as $value)
 
 // Get POST values
 $to = $_POST['to'] ?? 'adam.thomas@humber.ca';
-$subject = $_POST['subject'] ?? 'Testing';
+$subject = $_POST['subject'] ?? 'BrickMMO Tools Email';
 $message = $_POST['message'] ?? 'This is a test message.';
 
 // Add all other POST values to the bottom of the message
